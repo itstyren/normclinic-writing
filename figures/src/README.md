@@ -1,18 +1,20 @@
 # Figure sources
 
 Scripts that produced the current `figures/framework/normclinic_framework.drawio`
-and the previews used to check it. They need Python 3 (standard library only,
+and `figures/framework/normclinic_roles.drawio`, and the previews used to check them. They need Python 3 (standard library only,
 PyMuPDF for the PDF check) and Node with Playwright for rendering.
 
 | File | Role |
 |---|---|
 | `restyle_framework.py` | Transformed the v6 draw.io file (in git history before this commit) into the current one: pixel-style icons, compact memory band, flat actor-critic, no formula, Nature text sizes. Kept for the record; edit the current `.drawio` directly from here on. |
+| `roles_figure.py` | Generates the roles figure (`normclinic_roles.drawio`): one row per model call with an abridged instruction and its input and output keywords. Edit the `ROWS` table and rerun; chip widths are measured from the text with PIL and Liberation Sans, whose metrics match Arial. |
 | `dio.py` | Small writer for draw.io XML with explicit coordinates (rects, text, edges, polygons, extruded bars, pixel sprites). |
 | `palette.py`, `pix.py`, `sprites.json` | Colours (Wong palette plus tints) and the pixel sprites (robot, RL agent, environments). |
-| `drawio2svg.py` | Approximate renderer of an uncompressed `.drawio` to SVG, for previews. Group containers draw nothing, as in draw.io. Text wrapping is approximate. |
+| `drawio2svg.py` | Approximate renderer of an uncompressed `.drawio` to SVG, for previews. Group containers draw nothing, as in draw.io. Text wraps by measured width when PIL is installed, else by an estimate. |
 | `rast.js`, `svg2pdf.js` | Rasterise an SVG (Playwright/Chromium) and print it to a PDF page of a given width in mm. |
 
 ```bash
+python3 figures/src/roles_figure.py figures/framework/normclinic_roles.drawio
 python3 figures/src/drawio2svg.py figures/framework/normclinic_framework.drawio /tmp/fw.svg
 node figures/src/svg2pdf.js /tmp/fw.svg figures/framework/normclinic_framework.pdf 183
 python3 .claude/skills/nature-check/scripts/check.py figure figures/framework/normclinic_framework.pdf

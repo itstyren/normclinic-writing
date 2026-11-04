@@ -53,6 +53,20 @@ svg.append(f'<rect width="{pw}" height="{ph}" fill="#fff"/>')
 # order: document order
 order = [c for c in model.iter('mxCell') if c.get('id') not in ('0', '1')]
 
+_FONTS = {}
+def _measure(size, bold=False):
+    """Text width in px at a font size, with Liberation Sans (Arial metrics) when PIL is available."""
+    try:
+        from PIL import ImageFont
+        key = (round(size, 2), bold)
+        if key not in _FONTS:
+            path = '/usr/share/fonts/truetype/liberation/LiberationSans-%s.ttf' % ('Bold' if bold else 'Regular')
+            _FONTS[key] = ImageFont.truetype(path, size)
+        f = _FONTS[key]
+        return lambda t: f.getlength(t)
+    except Exception:
+        return lambda t: len(t) * size * 0.5
+
 def draw_vertex(c):
     st = style_of(c)
     if (c.get('style') or '').strip() == 'group' or st.get('group') == '1':
@@ -100,15 +114,17 @@ def draw_vertex(c):
     if lines and st.get('whiteSpace') == 'wrap':
         fs0 = float(st.get('fontSize', 12))
         avail = max(w - 2 * float(st.get('spacing', 2)) - float(st.get('spacingLeft', 0)), 10)
-        maxch = max(int(avail / (fs0 * 0.50)), 1)
+        bold = int(st.get('fontStyle', 0)) & 1
+        measure = _measure(fs0, bold)
         wrapped = []
         for l in lines:
             words = l.split(' '); cur = ''
             for wd in words:
-                if cur and len(cur) + 1 + len(wd) > maxch:
+                trial = (cur + ' ' + wd).strip()
+                if cur and measure(trial) > avail:
                     wrapped.append(cur); cur = wd
                 else:
-                    cur = (cur + ' ' + wd).strip()
+                    cur = trial
             if cur: wrapped.append(cur)
         lines = wrapped
     if lines:
