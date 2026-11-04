@@ -1,0 +1,28 @@
+# Local LaTeX Workshop / latexmk build output, figure previews
+build/
+
+# LaTeX auxiliary files (in case something is compiled outside build/)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.lof
+*.lot
+*.lodf
+*.lodt
+*.spl
+
+# draw.io lock and backup files
+*.drawio.bkp
+.$*.drawio*
+
+# Python
+__pycache__/

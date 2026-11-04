@@ -1,0 +1,75 @@
+% NormClinic manuscript for a Nature Portfolio journal.
+% Agents: read AGENTS.md and docs/nature_style.md before editing.
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=25mm]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage[super,sort&compress]{natbib}  % numbered superscript citations
+\usepackage{setspace}
+\usepackage{lineno}                        % line numbers for reviewers
+\usepackage{caption}
+\usepackage{newfloat}
+\usepackage[hidelinks]{hyperref}
+
+\graphicspath{{figures/}}
+
+% Captions in Nature's form: "Fig. 1 | Title. a, ..."
+\DeclareCaptionLabelSeparator{bar}{\space|\space}
+\captionsetup{labelfont=bf,labelsep=bar,font=small,
+  justification=raggedright,singlelinecheck=false}
+\renewcommand{\figurename}{Fig.}
+
+% Extended Data items are numbered apart from main figures and tables.
+\DeclareFloatingEnvironment[name={Extended Data Fig.},fileext=lodf,placement=tbp]{extfigure}
+\DeclareFloatingEnvironment[name={Extended Data Table},fileext=lodt,placement=tbp]{exttable}
+
+% A figure at its natural (final printed) size, centred, allowed to overhang the
+% margins. Figures are not scaled in LaTeX: their text sizes are set for print.
+\newcommand{\natfig}[1]{\makebox[\textwidth][c]{\includegraphics{#1}}}
+
+% naturemag.bst prints a bib entry's eprint field with \eprint; show it as an
+% arXiv link. Defined here so the .bbl's \providecommand keeps it.
+\newcommand{\eprint}[2][]{\href{https://arxiv.org/abs/#2}{arXiv:#2}}
+
+\begin{document}
+\onehalfspacing
+\linenumbers
+
+\begin{center}
+  {\Large\bfseries Can LLMs Be the Medicine for Reputation-Based Learning in Social Dilemmas?\par}
+\end{center}
+
+\begin{abstract}
+\end{abstract}
+
+% Introduction: no heading for Nature Machine Intelligence and Nature Human
+% Behaviour; Nature Communications wants \section*{Introduction}.
+
+\section*{Results}
+
+\section*{Discussion}
+
+\section*{Methods}
+
+\section*{Data availability}
+
+\section*{Code availability}
+
+\bibliographystyle{naturemag}
+\bibliography{references}
+
+\section*{Acknowledgements}
+
+\section*{Author contributions}
+
+\section*{Competing interests}
+
+\section*{Extended Data}
+
+\end{document}
