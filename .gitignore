@@ -26,3 +26,6 @@ build/
 
 # Python
 __pycache__/
+
+# Windows download markers
+*:Zone.Identifier
